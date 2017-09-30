@@ -1,10 +1,12 @@
 #include <iostream>
 #include "Cell.h"
+#include "GameOfLife.h"
 
 int main(void)
 {
-    Cell test = Cell(true);
-
-    std::cout << test.Status() << std::endl;
+    GameOfLife game = GameOfLife();
+    game.pass_generation();
+    game.pass_generation();
+    game.pass_generation();
 
 }

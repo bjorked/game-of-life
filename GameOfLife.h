@@ -11,6 +11,7 @@ class GameOfLife
     public:
         GameOfLife(void);
         GameOfLife(int width, int height);
+        void pass_generation(void);
 
     private:
         int matrix_width;
