@@ -15,8 +15,9 @@ class GameOfLife
     private:
         int matrix_width;
         int matrix_height;
+        Matrix game_matrix;
 
-        Matrix game;
+        int count_alive_neighbours(int x, int y);
 };
 
 #endif
