@@ -1,18 +1,12 @@
 #include "Cell.h"
 
-Cell::Cell(void)
-{
-    state = false;
-}
+Cell::Cell(void) : state(false) {}
 
-Cell::Cell(bool state)
-{
-    this->state = state;
-}
+Cell::Cell(bool cell_state) : state(cell_state) {}
 
 bool Cell::Status(void)
 {
-    return this->state;
+    return state;
 }
 
 void Cell::ToggleCell(void)
