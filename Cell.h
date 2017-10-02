@@ -4,12 +4,17 @@
 class Cell
 {
     public:
-        Cell(void);
-        Cell(bool cell_status);
-        bool Status(void);      // return Cell's current status
+        Cell(int x, int y, bool cell_status);
+
+        bool Status(void) {return state;}
+        int getX(void) {return x;}
+        int getY(void) {return y;}
+
         void ToggleCell(void);
 
     private:
+        int x;                  // coordinates
+        int y;
         bool state;             // true - alive, false - dead
 };
 
