@@ -1,46 +1,55 @@
 #include "GameOfLife.h"
 
 
-GameOfLife::GameOfLife(void) : matrix_width(50), matrix_height(50), game_matrix(50, std::vector<Cell>(50, false)) {}
-
-GameOfLife::GameOfLife(int width, int height) : matrix_width(width), matrix_height(height) {}
+GameOfLife::GameOfLife(void) : matrix_width(50), matrix_height(50) {
+    for (int i = 0; i < 50; i++) {
+        game_matrix.push_back(std::vector<Cell>());
+        for (int j = 0; j < 50; j++) {
+            game_matrix[i].push_back(Cell(i, j, false));
+        }
+    }
+}
 
 void GameOfLife::pass_generation(void)
 {
-    int alive_neighbours = 0;
+    int living_neighbours = 0;
+    bool status = false;
 
-    for (int row = 0; row != matrix_width; row++) {
-        for (int col = 0; col != matrix_height; col++) {
-            if (row == 0 || col == 0 || row == matrix_width-1 || col == matrix_height-1) {
+    for (auto& row : game_matrix) {
+        for (auto& cell : row) {
+            if (cell.getX() == 0 || cell.getY() == 0 ||cell.getX() == matrix_width-1 || cell.getY() == matrix_height-1) {
                 continue;
-            }
+            } else {
+                living_neighbours = count_living_neighbours(cell);
+                status = cell.Status();
 
-            alive_neighbours = count_alive_neighbours(row, col);
-
-            if (alive_neighbours < 2 && game_matrix[row][col].Status()) {
-                game_matrix[row][col].ToggleCell();
-            } else if (alive_neighbours > 3 && game_matrix[row][col].Status()) {
-                game_matrix[row][col].ToggleCell();
-            } else if (alive_neighbours == 3 && !(game_matrix[row][col].Status())) {
-                game_matrix[row][col].ToggleCell();
+                if (living_neighbours < 2 && status) {
+                    cell.ToggleCell();
+                } else if (living_neighbours > 3 && status) {
+                    cell.ToggleCell();
+                } else if (living_neighbours == 3 && !status) {
+                    cell.ToggleCell();
+                }
             }
         }
     }
 }
 
-int GameOfLife::count_alive_neighbours(int x, int y)
+int GameOfLife::count_living_neighbours(Cell cell)
 {
-    int alive_neighbours = 0;
+    int living_neighbours = 0;
+    int x = cell.getX();
+    int y = cell.getY();
 
-    for (int i = x-1; i != x+2; i++) {
-        for (int j = y-1; j != y+2; j++) {
-            if (i == x && j == y) {
+    for (int row = x-1; row <= x+1; row++) {
+        for (int col = y-1; col <= y+1; col++) {
+            if (row == x && col == y) {
                 continue;
-            } else if (game_matrix[i][j].Status()) {
-                alive_neighbours++;
+            } else if (game_matrix[row][col].Status()) {
+                living_neighbours++;
             }
         }
     }
 
-    return alive_neighbours;
+    return living_neighbours;
 }

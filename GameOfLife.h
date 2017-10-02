@@ -10,7 +10,6 @@ class GameOfLife
 {
     public:
         GameOfLife(void);
-        GameOfLife(int width, int height);
         void pass_generation(void);
 
     private:
@@ -18,7 +17,7 @@ class GameOfLife
         int matrix_height;
         Matrix game_matrix;
 
-        int count_alive_neighbours(int x, int y);
+        int count_living_neighbours(Cell cell);
 };
 
 #endif
