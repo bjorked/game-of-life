@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "src/logic/headers/gameoflife.h"
+#include <QtWidgets>
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +19,15 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    GameOfLife *game;
+    QTimer *timer;
+
+protected:
+    void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+
+public slots:
+    void new_generation(void);
 };
 
 #endif // MAINWINDOW_H

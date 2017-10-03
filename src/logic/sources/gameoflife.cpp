@@ -1,4 +1,4 @@
-#include "gameoflife.h"
+#include "src/logic/headers/gameoflife.h"
 
 
 GameOfLife::GameOfLife(void) : matrix_width(50), matrix_height(50) {
