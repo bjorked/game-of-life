@@ -1,5 +1,5 @@
-#ifndef GUARD_CELL_H
-#define GUARD_CELL_H
+#ifndef CELL_H
+#define CELL_H
 
 class Cell
 {
@@ -18,4 +18,4 @@ class Cell
         bool state;             // true - alive, false - dead
 };
 
-#endif
+#endif // CELL_H

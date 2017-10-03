@@ -1,7 +1,7 @@
-#ifndef GUARD_GAME_OF_LIFE_H
-#define GUARD_GAME_OF_LIFE_H
+#ifndef GAMEOFLIFE_H
+#define GAMEOFLIFE_H
 
-#include "Cell.h"
+#include "cell.h"
 #include <vector>
 
 typedef std::vector<std::vector<Cell>> Matrix;
@@ -20,4 +20,4 @@ class GameOfLife
         int count_living_neighbours(Cell cell);
 };
 
-#endif
+#endif // GAMEOFLIFE_H

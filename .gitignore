@@ -1,4 +1,2 @@
-.vscode/launch.json
-a.out
-.vscode/tasks.json
-.vscode/c_cpp_properties.json
+game-of-life-qt.pro
+game-of-life-qt.pro.user

@@ -1,4 +1,4 @@
-#include "GameOfLife.h"
+#include "gameoflife.h"
 
 
 GameOfLife::GameOfLife(void) : matrix_width(50), matrix_height(50) {

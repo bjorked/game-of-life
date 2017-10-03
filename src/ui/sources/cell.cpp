@@ -1,4 +1,4 @@
-#include "Cell.h"
+#include "cell.h"
 
 Cell::Cell(int x, int y, bool cell_state) : x(x), y(y), state(cell_state) {}
 
