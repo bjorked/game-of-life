@@ -9,11 +9,14 @@ typedef std::vector<std::vector<Cell>> Matrix;
 class Universe
 {
     public:
-        Universe(int width = 25, int height = 25);
+        Universe(int width = 10, int height = 10);
 
         int getWidth(void) const {return matrixWidth;}
         int getHeight(void) const {return matrixHeight;}
         int getGeneration(void) const {return generationCounter;}
+
+        bool getCellState(int row, int col) const {return universe[row][col].state;}
+        void toggleCell(int row, int col) {universe[row][col].toggleCell();}
 
         void nextGeneration(void);
         void reset(void);

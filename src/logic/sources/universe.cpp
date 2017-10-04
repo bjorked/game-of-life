@@ -30,7 +30,7 @@ int Universe::countLivingNeighbours(int row, int col)
         for (int y = col - 1; y <= col + 1; ++y) {
             if (x == row && y == col) {					// Skip the cell itself
                 continue;
-            } else if (universe[x][y].state()) {
+            } else if (universe[x][y].getState()) {
                 livingNeighbours++;
             }
         }
@@ -42,7 +42,7 @@ int Universe::countLivingNeighbours(int row, int col)
 bool Universe::liveOrDie(int row, int col) const
 {
     int livingNeighbours = countLivingNeighbours(row, col);
-    bool state = universe[x][y].state();
+    bool state = universe[x][y].getState();
 
     if (livingNeighbours < 2 && state) {
         return false;
