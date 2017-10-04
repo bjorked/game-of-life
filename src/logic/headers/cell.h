@@ -5,7 +5,7 @@ class Cell
 {
     public:
         Cell(bool state = false);
-        bool state(void) const {return state;}
+        bool getState(void) const {return state;}
         void toggleCell(void);
 
     private:

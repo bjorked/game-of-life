@@ -15,7 +15,7 @@ class Universe
         int getHeight(void) const {return matrixHeight;}
         int getGeneration(void) const {return generationCounter;}
 
-        bool getCellState(int row, int col) const {return universe[row][col].state;}
+        bool getCellState(int row, int col) const {return universe[row][col].getState();}
         void toggleCell(int row, int col) {universe[row][col].toggleCell();}
 
         void nextGeneration(void);

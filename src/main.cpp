@@ -1,6 +1,6 @@
-#include "src/ui/headers/mainwindow.h"
 #include <QApplication>
-#include "src/logic/headers/gameoflife.h"
+#include "src/ui/headers/mainwindow.h"
+#include "src/logic/headers/universe.h"
 
 int main(int argc, char *argv[])
 {

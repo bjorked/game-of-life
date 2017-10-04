@@ -2,11 +2,11 @@
 #include "src/logic/headers/universe.h"
 
 
-Universe::Universe(int height, int width)
-    : matrixWidth(width), matrixHeight(height), generationCounter(0),
-      universe(width, std::vector<Cell>(height, false)),
+Universe::Universe(int width, int height)
+    : universe(width, std::vector<Cell>(height, false)),
       nextUniverse(width, std::vector<Cell>(height, false)),
-      universePtr(&universe), nextUniversePtr(&nextUniverse) {}
+      universePtr(&universe), nextUniversePtr(&nextUniverse),
+      matrixWidth(width), matrixHeight(height), generationCounter(0) {}
 
 void Universe::nextGeneration(void)
 {
@@ -15,14 +15,14 @@ void Universe::nextGeneration(void)
     generationCounter++;
 }
 
-void reset(void)
+void Universe::reset(void)
 {
     universe.clear();
     nextUniverse.clear();
     generationCounter = 0;
 }
 
-int Universe::countLivingNeighbours(int row, int col)
+int Universe::countLivingNeighbours(int row, int col) const
 {
     int livingNeighbours = 0;
 
@@ -42,7 +42,7 @@ int Universe::countLivingNeighbours(int row, int col)
 bool Universe::liveOrDie(int row, int col) const
 {
     int livingNeighbours = countLivingNeighbours(row, col);
-    bool state = universe[x][y].getState();
+    bool state = universe[row][col].getState();
 
     if (livingNeighbours < 2 && state) {
         return false;
@@ -55,7 +55,7 @@ bool Universe::liveOrDie(int row, int col) const
     return state;
 }
 
-void updateMatrices(void)
+void Universe::updateMatrices(void)
 {
     for (int row = 0; row < matrixWidth; ++row) {
         for (int col = 0; col < matrixHeight; ++col) {

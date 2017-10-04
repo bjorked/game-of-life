@@ -6,7 +6,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    game(new GameOfLife),
+    game(new Universe),
     timer(new QTimer(this))
 {
     ui->setupUi(this);
@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete game;
+    delete timer;
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)
@@ -32,7 +34,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
             QBrush brush_on(Qt::blue);
             QBrush brush_off(Qt::white);
 
-            if (game->game_matrix[i][j].Status()) {
+            if (game->getCellState(i, j)) {
                 QRect rect(x, y, 50, 50);
                 painter.fillRect(rect, brush_on);
             } else {
@@ -48,12 +50,12 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     int x = floor(event->x() / 50);
     int y = floor(event->y() / 50);
 
-    game->game_matrix[x][y].ToggleCell();
+    game->toggleCell(x, y);
     update();
 }
 
 void MainWindow::new_generation(void)
 {
-    game->pass_generation();
+    game->nextGeneration();
     update();
 }

@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef GUARD_MAINWINDOW_H
+#define GUARD_MAINWINDOW_H
 
 #include <QMainWindow>
 #include "src/logic/headers/universe.h"
@@ -19,7 +19,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    GameOfLife *game;
+    Universe *game;
     QTimer *timer;
 
 protected:
@@ -30,4 +30,4 @@ public slots:
     void new_generation(void);
 };
 
-#endif // MAINWINDOW_H
+#endif
