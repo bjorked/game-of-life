@@ -1,21 +1,15 @@
-#ifndef CELL_H
-#define CELL_H
+#ifndef GUARD_CELL_H
+#define GUARD_CELL_H
 
 class Cell
 {
     public:
-        Cell(int x, int y, bool cell_status);
-
-        bool Status(void) {return state;}
-        int getX(void) {return x;}
-        int getY(void) {return y;}
-
+        Cell();
+        bool Status(void) const {return state;}
         void ToggleCell(void);
 
     private:
-        int x;                  // coordinates
-        int y;
         bool state;             // true - alive, false - dead
 };
 
-#endif // CELL_H
+#endif

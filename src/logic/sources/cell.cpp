@@ -1,6 +1,6 @@
 #include "src/logic/headers/cell.h"
 
-Cell::Cell(int x, int y, bool cell_state) : x(x), y(y), state(cell_state) {}
+Cell::Cell() : state(false) {}
 
 void Cell::ToggleCell(void)
 {
