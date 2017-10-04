@@ -1,8 +1,8 @@
 #include "src/logic/headers/cell.h"
 
-Cell::Cell() : state(false) {}
+Cell::Cell(bool state) : state(state) {}
 
-void Cell::ToggleCell(void)
+void Cell::toggleCell(void)
 {
     state = !state;
 }

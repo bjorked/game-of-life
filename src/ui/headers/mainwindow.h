@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "src/logic/headers/gameoflife.h"
+#include "src/logic/headers/universe.h"
 #include <QtWidgets>
 
 namespace Ui {

@@ -45,10 +45,10 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    int x = floor(event->y() / 50);
-    int y = floor(event->x() / 50);
+    int x = floor(event->x() / 50);
+    int y = floor(event->y() / 50);
 
-    game->game_matrix[y][x].ToggleCell();
+    game->game_matrix[x][y].ToggleCell();
     update();
 }
 

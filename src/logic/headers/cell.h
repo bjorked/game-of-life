@@ -4,9 +4,9 @@
 class Cell
 {
     public:
-        Cell();
-        bool Status(void) const {return state;}
-        void ToggleCell(void);
+        Cell(bool state = false);
+        bool state(void) const {return state;}
+        void toggleCell(void);
 
     private:
         bool state;             // true - alive, false - dead
