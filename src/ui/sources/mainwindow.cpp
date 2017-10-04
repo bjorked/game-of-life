@@ -1,60 +1,19 @@
+#include <QtWidgets>
 #include "src/ui/headers/mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QtWidgets>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    game(new Universe),
-    timer(new QTimer(this))
+    gameWidget(new GameOfLifeWidget)
 {
     ui->setupUi(this);
-    timer->setInterval(5000);
-    timer->start();
-    connect(timer, SIGNAL(timeout()), this, SLOT(new_generation()));
+
+    ui->gameSpace->addWidget(gameWidget);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete game;
-    delete timer;
-}
-
-void MainWindow::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-
-    for (int x = 0; x <= 450; x += 50) {
-        for (int y = 0; y <= 450; y += 50) {
-            int i = floor(x / 50);
-            int j = floor(y / 50);
-
-            QBrush brush_on(Qt::blue);
-            QBrush brush_off(Qt::white);
-
-            if (game->getCellState(i, j)) {
-                QRect rect(x, y, 50, 50);
-                painter.fillRect(rect, brush_on);
-            } else {
-                QRect rect(x, y, 50, 50);
-                painter.fillRect(rect, brush_off);
-            }
-        }
-    }
-}
-
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    int x = floor(event->x() / 50);
-    int y = floor(event->y() / 50);
-
-    game->toggleCellUni(x, y);
-    update();
-}
-
-void MainWindow::new_generation(void)
-{
-    game->nextGeneration();
-    update();
+    delete gameWidget;
 }

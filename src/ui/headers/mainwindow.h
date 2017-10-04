@@ -2,8 +2,7 @@
 #define GUARD_MAINWINDOW_H
 
 #include <QMainWindow>
-#include "src/logic/headers/universe.h"
-#include <QtWidgets>
+#include "src/ui/headers/gameoflifewidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,15 +18,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    Universe *game;
-    QTimer *timer;
-
-protected:
-    void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-
-public slots:
-    void new_generation(void);
+    GameOfLifeWidget *gameWidget;
 };
 
 #endif
