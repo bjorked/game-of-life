@@ -1,5 +1,6 @@
 #include <utility>
 #include "src/logic/headers/universe.h"
+#include <iostream>
 
 
 Universe::Universe(int width, int height)
@@ -30,7 +31,7 @@ int Universe::countLivingNeighbours(int row, int col) const
         for (int y = col - 1; y <= col + 1; ++y) {
             if (x == row && y == col) {					// Skip the cell itself
                 continue;
-            } else if (universe[x][y].getState()) {
+            } else if ((*universePtr)[x][y].getState()) {
                 livingNeighbours++;
             }
         }
@@ -41,14 +42,17 @@ int Universe::countLivingNeighbours(int row, int col) const
 
 bool Universe::liveOrDie(int row, int col) const
 {
+    if (row == 0 || col == 0 || row == matrixWidth-1 || col == matrixHeight-1)
+        return false;
+
     int livingNeighbours = countLivingNeighbours(row, col);
-    bool state = universe[row][col].getState();
+    bool state = (*universePtr)[row][col].getState();
 
     if (livingNeighbours < 2 && state) {
         return false;
     } else if (livingNeighbours > 3 && state) {
         return false;
-    } else if (livingNeighbours == 3 && state == false) {
+    } else if ((livingNeighbours == 3) && (state == false)) {
         return true;
     }
 
@@ -59,7 +63,7 @@ void Universe::updateMatrices(void)
 {
     for (int row = 0; row < matrixWidth; ++row) {
         for (int col = 0; col < matrixHeight; ++col) {
-            nextUniverse[row][col] = liveOrDie(row, col);
+            (*nextUniversePtr)[row][col] = liveOrDie(row, col);
         }
     }
 }

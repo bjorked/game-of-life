@@ -1,7 +1,6 @@
 #include "src/ui/headers/mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtWidgets>
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timer(new QTimer(this))
 {
     ui->setupUi(this);
-    timer->setInterval(3000);
+    timer->setInterval(5000);
     timer->start();
     connect(timer, SIGNAL(timeout()), this, SLOT(new_generation()));
 }
@@ -26,8 +25,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
 
-    for (int x = 0; x <= 500; x += 50) {
-        for (int y = 0; y <= 500; y += 50) {
+    for (int x = 0; x <= 450; x += 50) {
+        for (int y = 0; y <= 450; y += 50) {
             int i = floor(x / 50);
             int j = floor(y / 50);
 
@@ -50,7 +49,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     int x = floor(event->x() / 50);
     int y = floor(event->y() / 50);
 
-    game->toggleCell(x, y);
+    game->toggleCellUni(x, y);
     update();
 }
 
