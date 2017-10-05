@@ -2,6 +2,7 @@
 #define GUARD_GAMEOFLIFEWIDGET_H
 
 #include <QWidget>
+#include <QTimer>
 #include "src/logic/headers/universe.h"
 
 class GameOfLifeWidget : public QWidget
@@ -10,6 +11,10 @@ class GameOfLifeWidget : public QWidget
 
 public:
     explicit GameOfLifeWidget(QWidget *parent = 0);
+    ~GameOfLifeWidget(void);
+    void start(void);
+    void reset(void);
+    void pause(void);
 
 public slots:
     void newGeneration(void);
@@ -20,6 +25,7 @@ protected:
 
 private:
     Universe *game;
+    QTimer *timer;
 };
 
 #endif

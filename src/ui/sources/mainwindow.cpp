@@ -9,7 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->gameSpace->addWidget(gameWidget);
+    ui->gameLayout->addWidget(gameWidget);
+    connect(ui->startButton, &QPushButton::clicked, gameWidget, &GameOfLifeWidget::start);
+    connect(ui->resetButton, &QPushButton::clicked, gameWidget, &GameOfLifeWidget::reset);
+    connect(ui->pauseButton, &QPushButton::clicked, gameWidget, &GameOfLifeWidget::pause);
 }
 
 MainWindow::~MainWindow()

@@ -16,7 +16,7 @@ class Universe
         int getGeneration(void) const {return generationCounter;}
 
         bool getCellState(int row, int col) const {return (*universePtr)[row][col].getState();}
-        void toggleCellUni(int row, int col) {(*universePtr)[row][col].toggleCell();}
+        void toggleCell(int row, int col) {(*universePtr)[row][col].toggleCell();}
 
         void nextGeneration(void);
         void reset(void);

@@ -6,6 +6,7 @@ class Cell
     public:
         Cell(bool state = false);
         bool getState(void) const {return state;}
+        void setState(bool newState) {state = newState;}
         void toggleCell(void);
 
     private:

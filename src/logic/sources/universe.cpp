@@ -18,8 +18,13 @@ void Universe::nextGeneration(void)
 
 void Universe::reset(void)
 {
-    universe.clear();
-    nextUniverse.clear();
+    for (int row = 0; row < matrixWidth; row++) {
+        for (int col = 0; col < matrixHeight; col++) {
+            universe[row][col].setState(false);
+            nextUniverse[row][col].setState(false);
+        }
+    }
+
     generationCounter = 0;
 }
 
