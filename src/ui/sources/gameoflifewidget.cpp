@@ -26,6 +26,7 @@ void GameOfLifeWidget::reset(void)
 {
     timer->stop();
     game->reset();
+    emit matrixChanged(true);
     update();
 }
 
@@ -37,6 +38,7 @@ void GameOfLifeWidget::pause(void)
 void GameOfLifeWidget::newGeneration(void)
 {
     game->nextGeneration();
+    emit matrixChanged(true);
     update();
 }
 
@@ -69,5 +71,6 @@ void GameOfLifeWidget::mousePressEvent(QMouseEvent *event)
     int y = floor(event->y() / 50);
 
     game->toggleCell(x, y);
+    emit matrixChanged(true);
     update();
 }

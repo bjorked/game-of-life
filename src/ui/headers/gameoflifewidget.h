@@ -15,9 +15,13 @@ public:
     void start(void);
     void reset(void);
     void pause(void);
+    QString getGenerationCounter(void) {return QString::number(game->getGeneration());}
 
 public slots:
     void newGeneration(void);
+
+signals:
+    void matrixChanged(bool signal);
 
 protected:
     void paintEvent(QPaintEvent *event);

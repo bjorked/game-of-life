@@ -17,6 +17,8 @@ public:
     ~MainWindow();
 
 private:
+    void updateGenerationLabel(void);
+
     Ui::MainWindow *ui;
     GameOfLifeWidget *gameWidget;
 };
