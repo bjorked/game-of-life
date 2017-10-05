@@ -1,11 +1,13 @@
 #include <QTimer>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QColorDialog>
 #include <qmath.h>
 #include "src/ui/headers/gameoflifewidget.h"
 
 GameOfLifeWidget::GameOfLifeWidget(QWidget *parent)
-    : QWidget(parent), game(new Universe), timer(new QTimer(this))
+    : QWidget(parent), game(new Universe), timer(new QTimer(this)),
+      liveColor(Qt::green)
 {
     timer->setInterval(250);
     connect(timer, &QTimer::timeout, this, &GameOfLifeWidget::newGeneration);
@@ -30,6 +32,11 @@ void GameOfLifeWidget::reset(void)
     update();
 }
 
+void GameOfLifeWidget::selectColor(void)
+{
+    liveColor = QColorDialog::getColor();
+}
+
 void GameOfLifeWidget::pause(void)
 {
     timer->stop();
@@ -51,12 +58,11 @@ void GameOfLifeWidget::paintEvent(QPaintEvent *event)
             int i = qFloor(x / 50);
             int j = qFloor(y / 50);
 
-            QBrush brush_alive(Qt::green);
             QBrush brush_dead(Qt::white);
 
             if (game->getCellState(i, j)) {
                 QRect rect(x, y, 50, 50);
-                painter.fillRect(rect, brush_alive);
+                painter.fillRect(rect, liveColor);
             } else {
                 QRect rect(x, y, 50, 50);
                 painter.fillRect(rect, brush_dead);

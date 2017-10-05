@@ -16,6 +16,7 @@ public:
     void reset(void);
     void pause(void);
     QString getGenerationCounter(void) {return QString::number(game->getGeneration());}
+    void selectColor(void);
 
 public slots:
     void newGeneration(void);
@@ -30,6 +31,7 @@ protected:
 private:
     Universe *game;
     QTimer *timer;
+    QBrush liveColor;
 };
 
 #endif

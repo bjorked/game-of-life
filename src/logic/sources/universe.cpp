@@ -7,7 +7,7 @@ Universe::Universe(int width, int height)
     : universe(width, std::vector<Cell>(height, false)),
       nextUniverse(width, std::vector<Cell>(height, false)),
       universePtr(&universe), nextUniversePtr(&nextUniverse),
-      matrixWidth(width), matrixHeight(height), generationCounter(0) {}
+      matrixWidth(width), matrixHeight(height), generationCounter(1) {}
 
 void Universe::nextGeneration(void)
 {
@@ -25,7 +25,7 @@ void Universe::reset(void)
         }
     }
 
-    generationCounter = 0;
+    generationCounter = 1;
 }
 
 int Universe::countLivingNeighbours(int row, int col) const

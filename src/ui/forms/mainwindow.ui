@@ -57,7 +57,21 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="colorButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="generationLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="gameoverLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
