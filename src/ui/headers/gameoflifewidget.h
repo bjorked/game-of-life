@@ -15,7 +15,12 @@ public:
     void start(void);
     void reset(void);
     void pause(void);
+
+    void setInterval(int msec) {timer->setInterval(msec);}
+    int getInterval(void) {return timer->interval();}
+
     QString getGenerationCounter(void) {return QString::number(game->getGeneration());}
+
     void selectColor(void);
 
 public slots:

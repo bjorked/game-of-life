@@ -18,6 +18,7 @@ public:
 
 private:
     void updateGenerationLabel(void);
+    void updateIntervalLabel(void);
 
     Ui::MainWindow *ui;
     GameOfLifeWidget *gameWidget;
