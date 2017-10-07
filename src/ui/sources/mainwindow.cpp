@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->colorButton, &QPushButton::clicked, gameWidget, &GameOfLifeWidget::selectColor);
     connect(ui->intervalSlider, &QSlider::valueChanged, gameWidget, &GameOfLifeWidget::setInterval);
     connect(ui->intervalSlider, &QSlider::valueChanged, this, &MainWindow::updateIntervalLabel);
+    connect(ui->sizeBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), gameWidget, &GameOfLifeWidget::setSize);
 
     connect(gameWidget, &GameOfLifeWidget::matrixChanged, this, &MainWindow::updateGenerationLabel);
 }

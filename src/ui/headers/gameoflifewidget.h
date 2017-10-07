@@ -19,6 +19,8 @@ public:
     void setInterval(int msec) {timer->setInterval(msec);}
     int getInterval(void) {return timer->interval();}
 
+    void setSize(int size);
+
     QString getGenerationCounter(void) {return QString::number(game->getGeneration());}
 
     void selectColor(void);
@@ -37,6 +39,7 @@ private:
     Universe *game;
     QTimer *timer;
     QBrush liveColor;
+    int cellSize;
 };
 
 #endif

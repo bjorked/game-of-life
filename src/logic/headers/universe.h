@@ -9,7 +9,7 @@ typedef std::vector<std::vector<Cell>> Matrix;
 class Universe
 {
     public:
-        Universe(int width = 10, int height = 10);
+        Universe(int width = 50, int height = 50);
 
         int getWidth(void) const {return matrixWidth;}
         int getHeight(void) const {return matrixHeight;}
@@ -17,6 +17,8 @@ class Universe
 
         bool getCellState(int row, int col) const {return (*universePtr)[row][col].getState();}
         void toggleCell(int row, int col) {(*universePtr)[row][col].toggleCell();}
+
+        void setSize(int width, int height) {matrixWidth = width; matrixHeight = height;}
 
         void nextGeneration(void);
         void reset(void);

@@ -7,7 +7,7 @@
 
 GameOfLifeWidget::GameOfLifeWidget(QWidget *parent)
     : QWidget(parent), game(new Universe), timer(new QTimer(this)),
-      liveColor(Qt::green)
+      liveColor(Qt::green), cellSize(12)
 {
     timer->setInterval(250);
     connect(timer, &QTimer::timeout, this, &GameOfLifeWidget::newGeneration);
@@ -42,6 +42,12 @@ void GameOfLifeWidget::pause(void)
     timer->stop();
 }
 
+void GameOfLifeWidget::setSize(int size)
+{
+    game->setSize(size, size);
+    cellSize = 600 / size;
+}
+
 void GameOfLifeWidget::newGeneration(void)
 {
     game->nextGeneration();
@@ -53,18 +59,23 @@ void GameOfLifeWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
 
-    for (int x = 0; x <= 450; x += 50) {
-        for (int y = 0; y <= 450; y += 50) {
-            int i = qFloor(x / 50);
-            int j = qFloor(y / 50);
+    for (int row = 0; row <= 600; row += cellSize) {
+        painter.drawLine(row, 0, row, 600);
+        painter.drawLine(0, row, 600, row);
+    }
+
+    for (int x = 0; x < 600; x += cellSize) {
+        for (int y = 0; y < 600; y += cellSize) {
+            int i = x / cellSize;
+            int j = y / cellSize;
 
             QBrush brush_dead(Qt::white);
 
             if (game->getCellState(i, j)) {
-                QRect rect(x, y, 50, 50);
+                QRect rect(x, y, cellSize-1, cellSize-1);
                 painter.fillRect(rect, liveColor);
             } else {
-                QRect rect(x, y, 50, 50);
+                QRect rect(x, y, cellSize-1, cellSize-1);
                 painter.fillRect(rect, brush_dead);
             }
         }
@@ -73,10 +84,10 @@ void GameOfLifeWidget::paintEvent(QPaintEvent *event)
 
 void GameOfLifeWidget::mousePressEvent(QMouseEvent *event)
 {
-    int x = floor(event->x() / 50);
-    int y = floor(event->y() / 50);
+    int row = floor(event->x() / cellSize);
+    int col = floor(event->y() / cellSize);
 
-    game->toggleCell(x, y);
+    game->toggleCell(row, col);
     emit matrixChanged(true);
     update();
 }
