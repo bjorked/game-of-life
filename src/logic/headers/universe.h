@@ -4,37 +4,46 @@
 #include <vector>
 #include "src/logic/headers/cell.h"
 
+/*
+    Universe class encapsulates the game of life grid and everything that
+    happens inside it.
+    Cells are stored inside a 2D vector, there's also another vector that
+    that is used to find the next grid state.The pointers to these vectors
+    help avoid unnecessary copying.
+*/
+
 typedef std::vector<std::vector<Cell>> Matrix;
 
 class Universe
 {
-    public:
-        Universe(int width = 50, int height = 50);
+public:
+    Universe(int width = 60, int height = 60);
 
-        int getWidth(void) const {return matrixWidth;}
-        int getHeight(void) const {return matrixHeight;}
-        int getGeneration(void) const {return generationCounter;}
+    int getWidth(void) const {return universeWidth;}
+    int getHeight(void) const {return universeHeight;}
+    void setSize(int width, int height) {universeWidth = width; universeHeight = height;}
 
-        bool getCellState(int row, int col) const {return (*universePtr)[row][col].getState();}
-        void toggleCell(int row, int col) {(*universePtr)[row][col].toggleCell();}
+    int getGeneration(void) const {return generationCounter;}
 
-        void setSize(int width, int height) {matrixWidth = width; matrixHeight = height;}
+    bool getCellState(int row, int col) const {return (*universePtr)[row][col].getState();}
+    void toggleCell(int row, int col) {(*universePtr)[row][col].toggleCell();}
 
-        void nextGeneration(void);
-        void reset(void);
+    void nextGeneration(void);
+    void reset(void);
 
-    private:
-        Matrix universe;
-        Matrix nextUniverse;
-        Matrix* universePtr;
-        Matrix* nextUniversePtr;
-        int matrixWidth;
-        int matrixHeight;
-        int generationCounter;
+private:
+    int countLivingNeighbours(int row, int col) const;
+    bool liveOrDie(int row, int col) const;
+    void updateNextUniverse(void);
 
-        int countLivingNeighbours(int row, int col) const;
-        bool liveOrDie(int row, int col) const;
-        void updateMatrices(void);
+    Matrix universe;
+    Matrix nextUniverse;
+    Matrix *universePtr;
+    Matrix *nextUniversePtr;
+
+    int universeWidth;
+    int universeHeight;
+    int generationCounter;
 };
 
 #endif

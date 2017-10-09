@@ -12,6 +12,7 @@ class GameOfLifeWidget : public QWidget
 public:
     explicit GameOfLifeWidget(QWidget *parent = 0);
     ~GameOfLifeWidget(void);
+
     void start(void);
     void reset(void);
     void pause(void);
@@ -29,6 +30,7 @@ public slots:
     void newGeneration(void);
 
 signals:
+    // Emmited every time values of the universe change, such as resetting or plain spawning
     void matrixChanged(bool signal);
 
 protected:
@@ -38,8 +40,10 @@ protected:
 private:
     Universe *game;
     QTimer *timer;
-    QBrush liveColor;
-    int cellSize;
+    QBrush liveColor;					// Color of living cells
+
+    static const int WINDOWSIZE = 600;	// Default window size in pixels reserved for the grid
+    int cellSize;						// Cell size in pixes
 };
 
 #endif

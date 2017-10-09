@@ -1,6 +1,5 @@
 #include <QApplication>
 #include "src/ui/headers/mainwindow.h"
-#include "src/logic/headers/universe.h"
 
 int main(int argc, char *argv[])
 {

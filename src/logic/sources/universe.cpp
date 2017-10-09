@@ -1,25 +1,27 @@
 #include <utility>
 #include "src/logic/headers/universe.h"
-#include <iostream>
-
 
 Universe::Universe(int width, int height)
     : universe(width, std::vector<Cell>(height, false)),
       nextUniverse(width, std::vector<Cell>(height, false)),
       universePtr(&universe), nextUniversePtr(&nextUniverse),
-      matrixWidth(width), matrixHeight(height), generationCounter(1) {}
+      universeWidth(width), universeHeight(height), generationCounter(1) {}
 
+
+// After updating the nextUniverse we swap its and universe's pointers
+// This allows us to avoid copying nextUniverse's contents into universe
+// in later generations
 void Universe::nextGeneration(void)
 {
-    updateMatrices();
+    updateNextUniverse();
     std::swap(universePtr, nextUniversePtr);
     generationCounter++;
 }
 
 void Universe::reset(void)
 {
-    for (int row = 0; row < matrixWidth; row++) {
-        for (int col = 0; col < matrixHeight; col++) {
+    for (int row = 0; row < universeWidth; row++) {
+        for (int col = 0; col < universeHeight; col++) {
             universe[row][col].setState(false);
             nextUniverse[row][col].setState(false);
         }
@@ -28,6 +30,10 @@ void Universe::reset(void)
     generationCounter = 1;
 }
 
+// Check the status of 8 surrounding cells
+// X X X
+// X O X
+// X X X
 int Universe::countLivingNeighbours(int row, int col) const
 {
     int livingNeighbours = 0;
@@ -45,9 +51,15 @@ int Universe::countLivingNeighbours(int row, int col) const
     return livingNeighbours;
 }
 
+// Decide whether cell lives or dies based on the amount of living neighbours
+// Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+// Any live cell with two or three live neighbours lives on to the next generation.
+// Any live cell with more than three live neighbours dies, as if by overpopulation.
+// Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 bool Universe::liveOrDie(int row, int col) const
 {
-    if (row == 0 || col == 0 || row == matrixWidth-1 || col == matrixHeight-1)
+    // Border cells are ignored
+    if (row == 0 || col == 0 || row == universeWidth-1 || col == universeHeight-1)
         return false;
 
     int livingNeighbours = countLivingNeighbours(row, col);
@@ -64,10 +76,10 @@ bool Universe::liveOrDie(int row, int col) const
     return state;
 }
 
-void Universe::updateMatrices(void)
+void Universe::updateNextUniverse(void)
 {
-    for (int row = 0; row < matrixWidth; ++row) {
-        for (int col = 0; col < matrixHeight; ++col) {
+    for (int row = 0; row < universeWidth; ++row) {
+        for (int col = 0; col < universeHeight; ++col) {
             (*nextUniversePtr)[row][col] = liveOrDie(row, col);
         }
     }
