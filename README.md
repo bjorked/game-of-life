@@ -8,8 +8,21 @@ C++ implementation of Conway's Game of Life
 * Update interval selection
 * Generation counter
 
+# Usage
+Prerequisites: Qt5
+```
+git clone https://github.com/bjorked/game-of-life/
+cd game-of-life
+qmake game-of-life-qt.pro
+make
+./game-of-life-qt
+```
+
 # Screenshots
 ![screenshot1](https://github.com/bjorked/game-of-life/blob/master/screenshot_1.png)
+
+
+
 
 
 
