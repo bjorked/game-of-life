@@ -1,5 +1,5 @@
 # game-of-life
-C++ implementation of Conway's Game of Life
+C++ implementation of Conway's Game of Life with a Qt5 gui
 ​
 # Features
 * Starting/Pausing/Reseting the game
