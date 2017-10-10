@@ -15,7 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->intervalSlider->setRange(0, 1500);
     ui->intervalSlider->setValue(250);
     ui->intervalLabel->setText("250 msec");
-    ui->sizeBox->setValue(60);
+    ui->sizeBox->setValue(50);
+    ui->sizeBox->setMaximum(60);
 
     connect(ui->startButton, &QPushButton::clicked, gameWidget, &GameOfLifeWidget::start);
     connect(ui->resetButton, &QPushButton::clicked, gameWidget, &GameOfLifeWidget::reset);

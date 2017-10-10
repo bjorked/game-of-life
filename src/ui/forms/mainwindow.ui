@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>810</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>210</x>
       <y>0</y>
       <width>601</width>
       <height>601</height>
@@ -79,7 +79,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Set grid size:</string>
+        <string>Set grid size (max 60):</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

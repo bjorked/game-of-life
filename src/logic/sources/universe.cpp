@@ -1,12 +1,22 @@
 #include <utility>
 #include "src/logic/headers/universe.h"
 
-Universe::Universe(int width, int height)
-    : universe(width, std::vector<Cell>(height, false)),
-      nextUniverse(width, std::vector<Cell>(height, false)),
+Universe::Universe(int size)
+    : universe(size, std::vector<Cell>(size, false)),
+      nextUniverse(size, std::vector<Cell>(size, false)),
       universePtr(&universe), nextUniversePtr(&nextUniverse),
-      universeWidth(width), universeHeight(height), generationCounter(1) {}
+      universeSize(size), generationCounter(1) {}
 
+void Universe::setSize(int size)
+{
+    universeSize = size;
+    universe.clear();
+    nextUniverse.clear();
+    universe.resize(size, std::vector<Cell>(size, false));
+    nextUniverse.resize(size, std::vector<Cell>(size, false));
+    universePtr = &universe;
+    nextUniversePtr = &nextUniverse;
+}
 
 // After updating the nextUniverse we swap its and universe's pointers
 // This allows us to avoid copying nextUniverse's contents into universe
@@ -20,8 +30,8 @@ void Universe::nextGeneration(void)
 
 void Universe::reset(void)
 {
-    for (int row = 0; row < universeWidth; row++) {
-        for (int col = 0; col < universeHeight; col++) {
+    for (int row = 0; row < universeSize; row++) {
+        for (int col = 0; col < universeSize; col++) {
             universe[row][col].setState(false);
             nextUniverse[row][col].setState(false);
         }
@@ -59,7 +69,7 @@ int Universe::countLivingNeighbours(int row, int col) const
 bool Universe::liveOrDie(int row, int col) const
 {
     // Border cells are ignored
-    if (row == 0 || col == 0 || row == universeWidth-1 || col == universeHeight-1)
+    if (row == 0 || col == 0 || row == universeSize-1 || col == universeSize-1)
         return false;
 
     int livingNeighbours = countLivingNeighbours(row, col);
@@ -78,9 +88,15 @@ bool Universe::liveOrDie(int row, int col) const
 
 void Universe::updateNextUniverse(void)
 {
-    for (int row = 0; row < universeWidth; ++row) {
-        for (int col = 0; col < universeHeight; ++col) {
+    for (int row = 0; row < universeSize; ++row) {
+        for (int col = 0; col < universeSize; ++col) {
             (*nextUniversePtr)[row][col] = liveOrDie(row, col);
         }
     }
+}
+
+void Universe::resizeMatrixRows(Matrix matrix, int size)
+{
+    for (auto& row : matrix)
+        row.resize(size, false);
 }

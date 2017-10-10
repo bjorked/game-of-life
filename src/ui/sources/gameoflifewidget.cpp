@@ -7,7 +7,7 @@
 
 GameOfLifeWidget::GameOfLifeWidget(QWidget *parent)
     : QWidget(parent), game(new Universe), timer(new QTimer(this)),
-      liveColor(Qt::green), cellSize(10)	// Default grid size is 60x60, so default pixel size is 600/60
+      liveColor(Qt::green), cellSize(12)	// Default grid size is 50x50, so default pixel size is 600/50
 {
     timer->setInterval(250);
     connect(timer, &QTimer::timeout, this, &GameOfLifeWidget::newGeneration);
@@ -45,7 +45,7 @@ void GameOfLifeWidget::pause(void)
 void GameOfLifeWidget::setSize(int size)
 {
     game->reset();
-    game->setSize(size, size);
+    game->setSize(size);
     cellSize = WINDOWSIZE / size;
     update();
 }
@@ -60,25 +60,23 @@ void GameOfLifeWidget::newGeneration(void)
 void GameOfLifeWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+    int universeSize = game->getSize();
 
     // Pain the grid
-    for (int row = 0; row <= WINDOWSIZE; row += cellSize) {
-        painter.drawLine(row, 0, row, WINDOWSIZE);
-        painter.drawLine(0, row, WINDOWSIZE, row);
+    for (int row = 0; row < universeSize; ++row) {
+        painter.drawLine(row * cellSize, 0, row * cellSize, universeSize * cellSize);
+        painter.drawLine(0, row * cellSize, universeSize * cellSize, row * cellSize);
     }
 
-    for (int x = 0; x < WINDOWSIZE; x += cellSize) {
-        for (int y = 0; y < WINDOWSIZE; y += cellSize) {
-            int row = x / cellSize;
-            int col = y / cellSize;
-
+    for (int row = 0; row < universeSize; ++row) {
+        for (int col = 0; col < universeSize; ++col) {
             QBrush brush_dead(Qt::white);
 
             if (game->getCellState(row, col)) {
-                QRect rect(x, y, cellSize-1, cellSize-1);
+                QRect rect(row * cellSize, col * cellSize, cellSize-1, cellSize-1);
                 painter.fillRect(rect, liveColor);
             } else {
-                QRect rect(x, y, cellSize-1, cellSize-1);
+                QRect rect(row * cellSize, col * cellSize, cellSize-1, cellSize-1);
                 painter.fillRect(rect, brush_dead);
             }
         }

@@ -17,11 +17,10 @@ typedef std::vector<std::vector<Cell>> Matrix;
 class Universe
 {
 public:
-    Universe(int width = 60, int height = 60);
+    Universe(int size = 50);
 
-    int getWidth(void) const {return universeWidth;}
-    int getHeight(void) const {return universeHeight;}
-    void setSize(int width, int height) {universeWidth = width; universeHeight = height;}
+    int getSize(void) const {return universeSize;}
+    void setSize(int size);
 
     int getGeneration(void) const {return generationCounter;}
 
@@ -35,14 +34,14 @@ private:
     int countLivingNeighbours(int row, int col) const;
     bool liveOrDie(int row, int col) const;
     void updateNextUniverse(void);
+    void resizeMatrixRows(Matrix matrix, int size);
 
     Matrix universe;
     Matrix nextUniverse;
     Matrix *universePtr;
     Matrix *nextUniversePtr;
 
-    int universeWidth;
-    int universeHeight;
+    int universeSize;
     int generationCounter;
 };
 
